@@ -1,0 +1,6 @@
+node_modules
+**/*/resize-inspector/jquery-resizable.min.js
+**/*/lib/
+**/assets
+**/extension/features/index.js
+**/extension/legacy/features/act-on-change/feedChanges.js
