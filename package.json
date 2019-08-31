@@ -14,12 +14,12 @@
   "author": {
     "name": "Paul Otto",
     "email": "paul.otto@ottoops.com"
-},
+  },
   "contributors": [
     {
       "name": "Paul Otto",
       "email": "paul.otto@ottoops.com"
-      }
+    }
   ],
   "scripts": {
     "build:check": "yarn && yarn gen && yarn lint",
@@ -104,9 +104,11 @@
     "fuzzysort": "^1.1.4",
     "highcharts": "7",
     "mathjs": "^6.1.0",
+    "mem": "^4.0.0",
     "raven-js": "^3.25.2",
     "react": "^16.4.1",
-    "react-dom": "^16.4.1"
+    "react-dom": "^16.4.1",
+    "set-value": "^2.0.1"
   },
   "devDependencies": {
     "@babel/cli": "^7.1.2",
