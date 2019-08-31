@@ -4,7 +4,13 @@
 
 [![Build Status](https://travis-ci.org/potto007/toolkit-for-qustodio.svg?branch=master)](https://travis-ci.org/potto007/toolkit-for-qustodio)
 
+# Toolkit for Qustodio
+
 Toolkit for Qustodio is a browser extension that enhances your experience with the Qustodio Web Application.
+
+## WIP
+
+Please note that this is currently a work in progress. Presently converting from a fork of Toolkit for YNAB.
 
 ### Motivation
 
