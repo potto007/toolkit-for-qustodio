@@ -1,7 +1,26 @@
 {
-  "name": "toolkit-for-ynab",
-  "version": "2.13.0",
-  "private": true,
+  "name": "toolkit-for-qustodio",
+  "version": "0.1.0",
+  "description": "A general purpose Qustodio Parent Portal enhancing browser extension for Chrome and Firefox.",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/potto007/toolkit-for-qustodio.git"
+  },
+  "homepage": "https://github.com/potto007/toolkit-for-qustodio",
+  "bugs": {
+    "url": "https://github.com/potto007/toolkit-for-qustodio/issues"
+  },
+  "license": "mit",
+  "author": {
+    "name": "Paul Otto",
+    "email": "paul.otto@ottoops.com"
+},
+  "contributors": [
+    {
+      "name": "Paul Otto",
+      "email": "paul.otto@ottoops.com"
+      }
+  ],
   "scripts": {
     "build:check": "yarn && yarn gen && yarn lint",
     "build:beta": "yarn build:check && yarn webpack:beta && yarn build:legacy && yarn manifest:beta && yarn compress",
@@ -58,7 +77,7 @@
     "reporters": [
       "jest-dot-reporter"
     ],
-    "testURL": "https://app.youneedabudget.com/aaaaaaaa-bbbb-cccc-dddd-000000000000/budget/201802",
+    "testURL": "https://family.qustodio.com/user-rules/apps/user/3107081",
     "transform": {
       "^.+\\.jsx?$": "babel-jest",
       ".*.css": "<rootDir>/node_modules/jest-css-modules"
