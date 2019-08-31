@@ -14,12 +14,12 @@
   "author": {
     "name": "Paul Otto",
     "email": "paul.otto@ottoops.com"
-},
+  },
   "contributors": [
     {
       "name": "Paul Otto",
       "email": "paul.otto@ottoops.com"
-      }
+    }
   ],
   "scripts": {
     "build:check": "yarn && yarn gen && yarn lint",
