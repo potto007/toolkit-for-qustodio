@@ -13,21 +13,30 @@ export function getCurrentBudgetDate() {
   return { year: date.slice(0, 4), month: date.slice(4, 6) };
 }
 
-export function isCurrentRouteBudgetPage() {
+export function isCurrentRouteTimeLimitsPage() {
   const currentRoute = getCurrentRouteName();
 
   return (
-    currentRoute === qustodio.constants.RouteNames.BudgetSelect ||
-    currentRoute === qustodio.constants.RouteNames.BudgetIndex
+    currentRoute === qustodio.constants.RouteNames.TimeLimitsSelect ||
+    currentRoute === qustodio.constants.RouteNames.TimeLimitsIndex
   );
 }
 
-export function isCurrentRouteAccountsPage() {
+export function isCurrentRouteAppsPage() {
   const currentRoute = getCurrentRouteName();
 
   return (
-    currentRoute === qustodio.constants.RouteNames.AccountsSelect ||
-    currentRoute === qustodio.constants.RouteNames.AccountsIndex
+    currentRoute === qustodio.constants.RouteNames.AppsSelect ||
+    currentRoute === qustodio.constants.RouteNames.AppsIndex
+  );
+}
+
+export function isCurrentRouteWebPage() {
+  const currentRoute = getCurrentRouteName();
+
+  return (
+    currentRoute === qustodio.constants.RouteNames.WebSelect ||
+    currentRoute === qustodio.constants.RouteNames.WebIndex
   );
 }
 

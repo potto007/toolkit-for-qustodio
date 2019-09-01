@@ -67,8 +67,8 @@ function getStoredDateFilters(reportKey) {
   let fromDate = getFirstMonthOfBudget();
   let toDate = getToday();
   try {
-    fromDate = ynab.utilities.DateWithoutTime.createFromISOString(stored.fromDate);
-    toDate = ynab.utilities.DateWithoutTime.createFromISOString(stored.toDate);
+    fromDate = qustodio.utilities.DateWithoutTime.createFromISOString(stored.fromDate);
+    toDate = qustodio.utilities.DateWithoutTime.createFromISOString(stored.toDate);
   } catch (e) {
     /* defaults */
   }

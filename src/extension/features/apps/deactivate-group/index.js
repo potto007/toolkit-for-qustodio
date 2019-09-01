@@ -1,17 +1,17 @@
 import { Feature } from 'toolkit/extension/features/feature';
 import { getToolkitStorageKey } from 'toolkit/extension/utils/toolkit';
-import { isCurrentRouteAccountsPage, getEntityManager } from 'toolkit/extension/utils/ynab';
+import { isCurrentRouteAppsPage, getEntityManager } from 'toolkit/extension/utils/qustodio';
 import { controllerLookup } from 'toolkit/extension/utils/ember';
 
-const FLAG_COLORS = ['Red', 'Orange', 'Yellow', 'Green', 'Blue', 'Purple'];
+const GROUP_COLORS = ['Red', 'Orange', 'Yellow', 'Green', 'Blue', 'Purple'];
 
-export class SetMultipleFlags extends Feature {
+export class DeactivateGroup extends Feature {
   get _checkedRows() {
     return controllerLookup('accounts').get('areChecked');
   }
 
   get _isAnyCheckedTransactionFlagged() {
-    return this._checkedRows.some(transaction => transaction.get('flag'));
+    return this._checkedRows.some(transaction => transaction.get('group'));
   }
 
   injectCSS() {
@@ -19,7 +19,7 @@ export class SetMultipleFlags extends Feature {
   }
 
   shouldInvoke() {
-    return isCurrentRouteAccountsPage();
+    return isCurrentRouteAppsPage();
   }
 
   invoke() {
@@ -34,7 +34,7 @@ export class SetMultipleFlags extends Feature {
   observe(changedNodes) {
     if (
       changedNodes.has(
-        'ynab-u modal-popup modal-account-edit-transaction-list ember-view modal-overlay active'
+        'qustodio-u modal-popup modal-account-edit-transaction-list ember-view modal-overlay active'
       )
     ) {
       this.invoke();
@@ -46,66 +46,66 @@ export class SetMultipleFlags extends Feature {
   }
 
   _injectButtons($editModal) {
-    if (!$('#tk-add-flags', $editModal).length) {
+    if (!$('#tk-add-groups', $editModal).length) {
       $('hr', $editModal)
         .first()
         .parent()
         .after(
           $(`
-        <li id="tk-add-flags">
-          <button class="button-list tk-multi-flags__button">
-            <svg class="ynab-flag ynab-flag-header tk-multi-flags__icon">
+        <li id="tk-add-groups">
+          <button class="button-list tk-multi-groups__button">
+            <svg class="qustodio-group qustodio-group-header tk-multi-groups__icon">
               <g>
                 <path d="M 0,4 16,4 12,9 16,14 0,14 z"></path>
               </g>
             </svg>
-            Set Flag${this._checkedRows.length > 1 ? 's' : ''}
+            Set Group${this._checkedRows.length > 1 ? 's' : ''}
           </button>
         </li>
-      `).click(this._handleAddFlags)
+      `).click(this._handleAddGroups)
         );
     }
 
-    if (!$('#tk-remove-flags', $editModal).length) {
-      $('#tk-add-flags', $editModal).after(
+    if (!$('#tk-remove-groups', $editModal).length) {
+      $('#tk-add-groups', $editModal).after(
         $(`
-        <li id="tk-remove-flags">
-          <button class="button-list tk-multi-flags__button ${
+        <li id="tk-remove-groups">
+          <button class="button-list tk-multi-groups__button ${
             !this._isAnyCheckedTransactionFlagged ? 'button-disabled' : ''
           }">
-            <svg class="ynab-flag ynab-flag-none tk-multi-flags__icon">
+            <svg class="qustodio-group qustodio-group-none tk-multi-groups__icon">
               <g>
                 <path d="M 0,4 16,4 12,9 16,14 0,14 z"></path>
               </g>
             </svg>
-            Remove Flag${this._checkedRows.length > 1 ? 's' : ''}
+            Remove Group${this._checkedRows.length > 1 ? 's' : ''}
           </button>
         </li>
-      `).click(this._handleRemoveFlags)
+      `).click(this._handleRemoveGroups)
       );
     }
 
     if (!$('#tk-separator', $editModal).length) {
-      $('#tk-remove-flags', $editModal).after($('<li id="tk-separator"><hr></li>'));
+      $('#tk-remove-groups', $editModal).after($('<li id="tk-separator"><hr></li>'));
     }
   }
 
-  _handleAddFlags = () => {
-    const customColorNames = getToolkitStorageKey('flags');
+  _handleAddGroups = () => {
+    const customColorNames = getToolkitStorageKey('groups');
 
     $('.modal-account-edit-transaction-list')
       .removeClass('modal-account-edit-transaction-list')
-      .addClass('modal-account-flags');
+      .addClass('modal-account-groups');
     const $modalList = $('.modal-list').empty();
-    FLAG_COLORS.forEach(color => {
+    GROUP_COLORS.forEach(color => {
       let colorDisplayName = color;
-      if (ynabToolKit.options.CustomFlagNames) {
+      if (qustodioToolKit.options.CustomGroupNames) {
         colorDisplayName = customColorNames[color.toLowerCase()].label;
       }
 
       $modalList.append(
         $('<li>').append(
-          $('<button>', { class: `ynab-flag-${color.toLowerCase()}` })
+          $('<button>', { class: `qustodio-group-${color.toLowerCase()}` })
             .click(() => this._applyColor(color))
             .append($('<div>', { class: 'label-bg', text: colorDisplayName }))
             .append($('<div>', { class: 'label', text: colorDisplayName }))
@@ -114,7 +114,7 @@ export class SetMultipleFlags extends Feature {
     });
   };
 
-  _handleRemoveFlags = () => {
+  _handleRemoveGroups = () => {
     if (!this._isAnyCheckedTransactionFlagged) {
       return this._closeModal();
     }
@@ -128,7 +128,7 @@ export class SetMultipleFlags extends Feature {
       this._checkedRows.forEach(transaction => {
         const entity = transactionsCollection.findItemByEntityId(transaction.get('entityId'));
         if (entity) {
-          entity.set('flag', color);
+          entity.set('group', color);
         }
       });
     });

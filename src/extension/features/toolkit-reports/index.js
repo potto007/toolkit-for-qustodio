@@ -9,12 +9,12 @@ const TOOLKIT_REPORTS_CONTAINER_ID = 'toolkit-reports';
 const TOOLKIT_REPORTS_NAVLINK_CLASS = 'tk-react-reports-link';
 const TOOLKIT_REPORTS_NAVLINK_SELECTOR = `.${TOOLKIT_REPORTS_NAVLINK_CLASS}`;
 
-const YNAB_CONTENT_CONTAINER_SELECTOR = '.ynab-u.content';
-const YNAB_APPLICATION_CONTENT_SELECTOR = `${YNAB_CONTENT_CONTAINER_SELECTOR} .scroll-wrap,.register-flex-columns`;
-const YNAB_NAVLINK_CLASSES = ['navlink-budget', 'navlink-accounts', 'navlink-reports'];
-const YNAB_NAVLINK_SELECTOR = `.${YNAB_NAVLINK_CLASSES.join(', .')}`;
-const YNAB_NAVACCOUNT_CLASS = 'nav-account-row';
-const YNAB_NAVACCOUNT_SELECTOR = `.${YNAB_NAVACCOUNT_CLASS}`;
+const QUSTODIO_CONTENT_CONTAINER_SELECTOR = '.qustodio-u.content';
+const QUSTODIO_APPLICATION_CONTENT_SELECTOR = `${QUSTODIO_CONTENT_CONTAINER_SELECTOR} .scroll-wrap,.register-flex-columns`;
+const QUSTODIO_NAVLINK_CLASSES = ['navlink-budget', 'navlink-accounts', 'navlink-reports'];
+const QUSTODIO_NAVLINK_SELECTOR = `.${QUSTODIO_NAVLINK_CLASSES.join(', .')}`;
+const QUSTODIO_NAVACCOUNT_CLASS = 'nav-account-row';
+const QUSTODIO_NAVACCOUNT_SELECTOR = `.${QUSTODIO_NAVACCOUNT_CLASS}`;
 
 export class ToolkitReports extends Feature {
   injectCSS() {
@@ -27,7 +27,7 @@ export class ToolkitReports extends Feature {
 
   invoke() {
     if (!document.getElementById(TOOLKIT_REPORTS_CONTAINER_ID)) {
-      $(YNAB_CONTENT_CONTAINER_SELECTOR).append(
+      $(QUSTODIO_CONTENT_CONTAINER_SELECTOR).append(
         $('<div>', {
           id: TOOLKIT_REPORTS_CONTAINER_ID,
           css: { height: '100%' },
@@ -57,10 +57,10 @@ export class ToolkitReports extends Feature {
 
   _updateNavigation() {
     // remove the active class from all navigation items and add active to our guy
-    $(YNAB_NAVLINK_SELECTOR).removeClass('active');
-    $(YNAB_NAVACCOUNT_SELECTOR).removeClass('is-selected');
+    $(QUSTODIO_NAVLINK_SELECTOR).removeClass('active');
+    $(QUSTODIO_NAVACCOUNT_SELECTOR).removeClass('is-selected');
     $(TOOLKIT_REPORTS_NAVLINK_SELECTOR).addClass('active');
-    $(`${YNAB_NAVLINK_SELECTOR}, ${YNAB_NAVACCOUNT_SELECTOR}`).on(
+    $(`${QUSTODIO_NAVLINK_SELECTOR}, ${QUSTODIO_NAVACCOUNT_SELECTOR}`).on(
       'click',
       this._removeToolkitReports
     );
@@ -68,7 +68,7 @@ export class ToolkitReports extends Feature {
 
   _removeToolkitReports(event) {
     $(TOOLKIT_REPORTS_NAVLINK_SELECTOR).removeClass('active');
-    $(YNAB_APPLICATION_CONTENT_SELECTOR).show();
+    $(QUSTODIO_APPLICATION_CONTENT_SELECTOR).show();
 
     const container = document.getElementById(TOOLKIT_REPORTS_CONTAINER_ID);
     if (container) {
@@ -76,16 +76,16 @@ export class ToolkitReports extends Feature {
     }
 
     const $currentTarget = $(event.currentTarget);
-    if (YNAB_NAVLINK_CLASSES.some(className => $currentTarget.hasClass(className))) {
+    if (QUSTODIO_NAVLINK_CLASSES.some(className => $currentTarget.hasClass(className))) {
       $currentTarget.addClass('active');
-    } else if ($currentTarget.hasClass(YNAB_NAVACCOUNT_CLASS)) {
+    } else if ($currentTarget.hasClass(QUSTODIO_NAVACCOUNT_CLASS)) {
       $currentTarget.addClass('is-selected');
     }
   }
 
   _renderToolkitReports() {
     setTimeout(() => {
-      $(YNAB_APPLICATION_CONTENT_SELECTOR).hide();
+      $(QUSTODIO_APPLICATION_CONTENT_SELECTOR).hide();
 
       const container = document.getElementById(TOOLKIT_REPORTS_CONTAINER_ID);
       if (container) {
