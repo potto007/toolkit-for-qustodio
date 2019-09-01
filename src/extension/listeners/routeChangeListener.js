@@ -1,6 +1,6 @@
 import { controllerLookup } from 'toolkit/extension/utils/ember';
 import { withToolkitError } from 'toolkit/core/common/errors/with-toolkit-error';
-import { getEntityManager } from 'toolkit/extension/utils/ynab';
+import { getEntityManager } from 'toolkit/extension/utils/qustodio';
 
 let instance = null;
 

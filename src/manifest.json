@@ -1,11 +1,14 @@
 {
-  "author": "Toolkit for YNAB",
-  "name": "Toolkit for YNAB",
-  "description": "UI customizations and tweaks for the web version of YNAB.",
-  "version": "2.13.0",
+  "author": {
+    "name": "Paul Otto",
+    "email": "paul.otto@ottoops.com"
+  },
+  "name": "Toolkit for Qustodio",
+  "description": "A general purpose Qustodio Parent Portal enhancing browser extension for Chrome and Firefox.",
+  "version": "0.1.0",
   "content_scripts": [
     {
-      "matches": ["http://*.youneedabudget.com/*", "https://*.youneedabudget.com/*"],
+      "matches": ["http://*.qustodio.com/*", "https://*.qustodio.com/*"],
       "all_frames": true,
       "run_at": "document_idle",
       "js": ["content-scripts/init.js"]
@@ -23,7 +26,7 @@
     "page": "background/index.html",
     "persistent": true
   },
-  "homepage_url": "https://github.com/toolkit-for-ynab/toolkit-for-ynab/",
+  "homepage_url": "https://github.com/potto007/toolkit-for-qustodio/",
   "options_ui": {
     "open_in_tab": true,
     "page": "options/index.html"
@@ -32,8 +35,8 @@
   "content_security_policy": "script-src 'self'; object-src 'self'",
   "browser_action": {
     "default_icon": "assets/images/icons/button.png",
-    "default_title": "Toolkit for YNAB",
+    "default_title": "Toolkit for Qustodio",
     "default_popup": "popup/index.html"
   },
-  "permissions": ["http://*.youneedabudget.com/*", "https://*.youneedabudget.com/*", "storage"]
+  "permissions": ["http://*.qustodio.com/*", "https://*.qustodio.com/*", "storage"]
 }

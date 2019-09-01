@@ -1,5 +1,5 @@
 /* eslint-disable */
-ynabToolKit.l10nData = {
+qustodioToolKit.l10nData = {
   "app.done": "Klart",
   "app.continue": "Fortsätt",
   "app.ok": "OK",
@@ -48,7 +48,7 @@ ynabToolKit.l10nData = {
   "aria.selectName": "Select {{name}}",
   "aria.uncheckAll": "Uncheck all",
   "loading.loading": "Laddar {{{item}}}",
-  "loading.YNAB": "Loading YNAB",
+  "loading.Qustodio": "Loading Qustodio",
   "months.Jan": "Jan",
   "months.Feb": "Feb",
   "months.Mar": "Mars",

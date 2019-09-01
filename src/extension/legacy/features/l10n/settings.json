@@ -1,6 +1,6 @@
 {
   "name": "l10n",
-  "title": "Localization of YNAB",
+  "title": "Localization of Qustodio",
   "default": "0",
   "section": "general",
   "type": "select",

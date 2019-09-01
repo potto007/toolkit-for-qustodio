@@ -1,8 +1,8 @@
 {
-  "name": "Toolkit for YNAB (Beta)",
+  "name": "Toolkit for Qustodio (Beta)",
   "browser_action": {
     "default_icon": "assets/images/icons/button.png",
-    "default_title": "Toolkit for YNAB (Beta)",
+    "default_title": "Toolkit for Qustodio (Beta)",
     "default_popup": "popup/index.html"
   }
 }
