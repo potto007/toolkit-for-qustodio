@@ -26,7 +26,7 @@ const MONTHS_LONG = [
   'November',
   'December',
 ];
-const STORAGE_KEY_PREFIX = 'ynab-toolkit-';
+const STORAGE_KEY_PREFIX = 'qustodio-toolkit-';
 
 export const MonthStyle = {
   Short: 0,
@@ -56,7 +56,7 @@ export function removeToolkitStorageKey(key) {
 }
 
 export function l10n(key, defaultValue) {
-  return (ynabToolKit.l10nData && ynabToolKit.l10nData[key]) || defaultValue;
+  return (qustodioToolKit.l10nData && qustodioToolKit.l10nData[key]) || defaultValue;
 }
 
 export function l10nMonth(monthIndex, short = MonthStyle.Long) {

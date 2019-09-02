@@ -1,3 +1,3 @@
-import { YNABToolkit } from './ynab-toolkit';
-const ynabToolkit = new YNABToolkit();
-ynabToolkit.initializeToolkit();
+import { QustodioToolkit } from './qustodio-toolkit';
+const qustodioToolkit = new QustodioToolkit();
+qustodioToolkit.initializeToolkit();

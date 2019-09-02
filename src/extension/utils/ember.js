@@ -20,7 +20,7 @@ export function componentLookup(componentName) {
 }
 
 export function lookupForReopen(name) {
-  const appContainer = __ynabapp__.__container__;
+  const appContainer = __qustodioapp__.__container__;
 
   let toReopen = appContainer.factoryCache[name];
   if (toReopen) {
@@ -43,14 +43,14 @@ export function lookupForReopen(name) {
 function containerLookup(containerName) {
   let container;
   try {
-    container = __ynabapp__.__container__.lookup(containerName);
+    container = __qustodioapp__.__container__.lookup(containerName);
   } catch (e) {
-    container = __ynabapp__.__container__.factoryCache[containerName];
+    container = __qustodioapp__.__container__.factoryCache[containerName];
   }
 
   return container;
 }
 
 function getViewRegistry() {
-  return __ynabapp__.__container__.lookup('-view-registry:main');
+  return __qustodioapp__.__container__.lookup('-view-registry:main');
 }

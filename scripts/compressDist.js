@@ -15,7 +15,7 @@ if (!fs.existsSync(extensionDirectory)) {
 
 // It's nice to create zip files with the version number in the name
 const version = require(path.join(extensionDirectory, 'manifest.json')).version;
-const zipFile = path.join(outputDirectory, `toolkit-for-ynab-v${version}.zip`);
+const zipFile = path.join(outputDirectory, `toolkit-for-qustodio-v${version}.zip`);
 
 // Create our zip file
 const output = fs.createWriteStream(zipFile);

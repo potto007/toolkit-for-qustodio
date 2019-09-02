@@ -16,7 +16,7 @@ glob(`${LEGACY_FEATURES_DIR}/*/**/main.js`, (error, files) => {
         if (error) return reject(error);
 
         const findString = fileData.match(
-          /^[\s]*(ynabToolKit\..+?)[\s]*=[\s]*\([\s]*function[\s]*\([\s]*\)[\s]*\{.*$/m
+          /^[\s]*(qustodioToolKit\..+?)[\s]*=[\s]*\([\s]*function[\s]*\([\s]*\)[\s]*\{.*$/m
         );
 
         if (findString && findString[1]) {
@@ -46,8 +46,8 @@ function writeFeedChanges(features) {
   */
 
 (function poll() {
-  if (typeof ynabToolKit.shared !== 'undefined') {
-    ynabToolKit.shared.feedChanges = function (changes) {
+  if (typeof qustodioToolKit.shared !== 'undefined') {
+    qustodioToolKit.shared.feedChanges = function (changes) {
       ${features
         .map(
           (feature, index) =>

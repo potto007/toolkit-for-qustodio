@@ -1,5 +1,6 @@
-# YNAB Toolkit Development
-This folder holds all the source code for the YNAB Toolkit.
+# Qustodio Toolkit Development
+
+This folder holds all the source code for the Qustodio Toolkit.
 
 The folder structure is as such:
 
@@ -7,10 +8,9 @@ The folder structure is as such:
 |-core
 |---listeners
 |-features
-|---accounts
-|---budget
-|---general
-|---reports
+|---apps
+|---time-limits
+|---web
 |---toolkitReports
 |-helpers
 ```
@@ -18,7 +18,7 @@ The folder structure is as such:
 `core/`: Contains all the core functionality for the Toolkit such as the observers
 and the base `Feature` class.
 
-`features/`: Contains sub-directories for each section of the YNAB application
+`features/`: Contains sub-directories for each section of the Qustodio application
 and house the source code for each individual feature. This is where most
 development will take place.
 
@@ -30,41 +30,43 @@ Ember views or normalizing currency values.
 It is extremely easy to get started with your first feature. In order to do so,
 follow these steps:
 
-1. Determine where your feature belongs in YNAB (accounts/budget/general)
-2. Create a sub-directory in the proper sub-directory e.g. `account/`, `budget/`, `general/`
+1. Determine where your feature belongs in Qustodio (apps/time-limits/web)
+2. Create a sub-directory in the proper sub-directory e.g. `apps/`, `time-limits/`, `web/`
 3. Create an `index.js` file which has the following:
-  <!-- spacing is intentionally weird here because of markdown -->
-  ```javascript
-  import { Feature } from 'toolkit/extension/features/feature';
+   <!-- spacing is intentionally weird here because of markdown -->
 
-  export class MyCoolFeature extends Feature {
-    shouldInvoke() {
-      return true;
-    }
+```javascript
+import { Feature } from 'toolkit/extension/features/feature';
 
-    invoke() {
-      console.log('MyCoolFeature is working!');
-    }
+export class MyCoolFeature extends Feature {
+  shouldInvoke() {
+    return true;
   }
-  ```
-4. Create a `settings.js` file which has the following:
-  <!-- spacing is intentionally weird here because of markdown -->
-  ```javascript
-  module.exports = {
-    name: 'MyCoolFeature',
-    type: 'checkbox',
-    default: false,
-    section: 'budget',
-    title: 'My Cool Feature!',
-    description: 'This is my brand new feature.'
-  };
 
-  ```
+  invoke() {
+    console.log('MyCoolFeature is working!');
+  }
+}
+```
+
+4. Create a `settings.js` file which has the following:
+   <!-- spacing is intentionally weird here because of markdown -->
+
+```javascript
+module.exports = {
+  name: 'MyCoolFeature',
+  type: 'checkbox',
+  default: false,
+  section: 'apps',
+  title: 'My Cool Feature!',
+  description: 'This is my brand new feature.',
+};
+```
 
 5. Run `./build` to build the extension for all the browswers.
-6. *chrome:* go to `chrome://extensions` and turn on "Developer mode". Then "Load
-unpacked extension". Select `/output/chrome/` and it will load into chrome.
-7. Reload YNAB!
+6. _chrome:_ go to `chrome://extensions` and turn on "Developer mode". Then "Load
+   unpacked extension". Select `/output/chrome/` and it will load into chrome.
+7. Reload Qustodio!
 
 In order to help you develop cool features, we've created a few API functions
 that you get for free when extending `Feature`.
@@ -74,16 +76,18 @@ that you get for free when extending `Feature`.
 #### The following functions can be declared inside your Feature Class.
 
 #### `constructor()`
+
 **optional function, not required to be declared**
 
 Your feature's constructor is invoked as soon as the Toolkit is injected onto
-the page. You should not attempt a DOM manipulation or access to Ember/YNAB
+the page. You should not attempt a DOM manipulation or access to Ember/Qustodio
 as it is not guaranteed or likely to be ready when your constructor is invoked.
 The job of the base `Feature` constructor is to simply fetch the user settings
 of your feature. If `enabled` is set to false for your Feature's settings,
 then invoke will not be called.
 
 #### `willInvoke(): <void|Promise>`
+
 **optional function, not required to be declared**
 
 willInvoke() is an optional hook that you can define in your class that allows
@@ -93,15 +97,11 @@ you choose to run asynchronous code, just return a promise from `willInvoke()`.
 Note that `willInvoke()` runs before `shouldInvoke()` runs and does not care
 about the return value of `shouldInvoke()`.
 
-Running Balance is an example of why you would want to use this. Running Balance
-runs over all transactions in every account to initalize the running balance
-calculation. If this weren't done before we invoked, there's a chance users would
-not see any data in the running balance column.
-
 #### `shouldInvoke(): boolean`
+
 **optional function, not required to be declared**
 
-shouldInvoke is called immediately once the page and YNAB is ready. This function
+shouldInvoke is called immediately once the page and Qustodio is ready. This function
 should perform a synchronous operation to determine whether or not your feature
 should be invoked. You should also use this function in your `observe()`, or
 `onRouteChanged()` functions to determine whether or not you should invoke.
@@ -109,23 +109,25 @@ should be invoked. You should also use this function in your `observe()`, or
 Example:
 
 ```javascript
-import { isCurrentRouteBudgetPage } from 'toolkit/extension/utils/ynab';
+import { isCurrentRouteAppsPage } from 'toolkit/extension/utils/qustodio';
 
 ...
 
 shouldInvoke() {
-  return isCurrentRouteBudgetPage();
+  return isCurrentRouteAppsPage();
 }
 ```
 
 #### `invoke(): void`
+
 **optional function, not required to be declared**
 
-Invoke is called immediately once the page and YNAB is ready and shouldInvoke()
+Invoke is called immediately once the page and Qustodio is ready and shouldInvoke()
 returns true. This is the entrypoint of your feature. You can be certain that
-at this point, the page is ready for manipulation and YNAB is loaded.
+at this point, the page is ready for manipulation and Qustodio is loaded.
 
 #### `injectCSS()`
+
 **optional function, not required to be declared**
 
 injectCSS is called only once when the feature is instantiated, and its job is to
@@ -135,32 +137,37 @@ return any global CSS styles you'd like to have placed in a `<style>` tag in the
 For example, a CSS based feature to hide the referral program banner would look like this:
 
 **index.js**
+
 ```javascript
 import { Feature } from 'toolkit/core/feature';
 
 export class HideReferralBanner extends Feature {
-  injectCSS() { return require('./index.css'); }
+  injectCSS() {
+    return require('./index.css');
+  }
 }
 ```
 
 **index.css**
+
 ```css
 div.referral-program {
-    display: none;
+  display: none;
 }
 ```
 
 You can get ahold of the css string you need however you like at runtime, just
-be aware that YNAB itself isn't loaded yet. This feature is designed to be used
+be aware that Qustodio itself isn't loaded yet. This feature is designed to be used
 statically for styles that don't change that your feature requires on the page.
 
 #### `observe(changedNodes: Set): void`
+
 **optional function, not required to be declared**
 
 Observe will be called every time there's a change to the DOM. The underlying
 code of observe uses a [Mutation Observer][mutation-observer]. Once a change is
 detected from the DOM, we iterate over every node and add the `class` attribute
-from the underylying element to a `Set`. `ember-view ` is stripped from every
+from the underylying element to a `Set`. `ember-view` is stripped from every
 class name to reduce complexity.
 
 Note that it is extremely likely to receive many calls to observe when things
@@ -184,6 +191,7 @@ Note: The first line of your `observe()` function should call `this.shouldInvoke
 and return immediately if the result is false.
 
 #### `onRouteChanged(currentRoute: string): void`
+
 **optional function, not required to be declared**
 
 OnRouteChanged is designed to be called every time the user navigates to a new
@@ -191,18 +199,18 @@ page. In order to do this, we've implemented an Ember Observer which watches for
 changes to the following attributes:
 
 - `currentRouteName`: Any time the Ember router changes the underlying controller
-or view, this gets changed. (ie: Accounts -> Budget or vise versa). This does not
-change if you just simply switch which account you're looking at.
+  or view, this gets changed. (ie: Apps -> Group or vise versa). This does not
+  change if you just simply switch which app you're looking at.
 
-- `budgetVersionId`: This will change if the user switches to an entirely different
-budget. This can be done natively but going through the three page budget swap
-flow or with the Toolkit 'Quck Budget Switch' feature.
+- `groupVersionId`: This will change if the user switches to an entirely different
+  group. This can be done natively but going through the three page group swap
+  flow or with the Toolkit 'Quick Group Switch' feature.
 
-- `selectedAccountId`: This handles the case where a user is just flipping through
-accounts but still remaining on the 'accounts' route.
+- `selectedAppId`: This handles the case where a user is just flipping through
+  apps but still remaining on the 'apps' route.
 
-- `monthString`: This handles the case where the user is flipping through months
-on the budget page.
+- `groupString`: This handles the case where the user is flipping through groups
+  on the group page.
 
 When one of these things are changed, your `onRouteChanged` handler will get called
 with the name of the route the user is currently on. More often than not a simple

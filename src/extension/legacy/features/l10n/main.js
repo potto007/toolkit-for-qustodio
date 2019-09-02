@@ -1,34 +1,34 @@
 (function poll() {
   // Waits until an external function gives us the all clear that we can run (at /shared/main.js)
   if (
-    typeof ynabToolKit !== 'undefined' &&
-    ynabToolKit.pageReady === true &&
+    typeof qustodioToolKit !== 'undefined' &&
+    qustodioToolKit.pageReady === true &&
     typeof Ember !== 'undefined'
   ) {
-    ynabToolKit.l10n = (function() {
+    qustodioToolKit.l10n = (function() {
       // Supporting functions,
       // or variables, etc
 
       // Shortcuts
-      var l10n = ynabToolKit.l10nData;
-      ynabToolKit.l10nMissingStrings = {};
+      var l10n = qustodioToolKit.l10nData;
+      qustodioToolKit.l10nMissingStrings = {};
 
-      ynabToolKit.shared.monthsShort = ynabToolKit.shared.monthsShort.map(function(month) {
+      qustodioToolKit.shared.monthsShort = qustodioToolKit.shared.monthsShort.map(function(month) {
         return l10n['months.' + month];
       });
 
-      ynabToolKit.shared.monthsFull = ynabToolKit.shared.monthsFull.map(function(month) {
+      qustodioToolKit.shared.monthsFull = qustodioToolKit.shared.monthsFull.map(function(month) {
         return l10n['months.' + month];
       });
 
       function getDateInfo() {
-        var selectedMonth = ynabToolKit.shared.parseSelectedMonth();
-        var currentMonthName = ynabToolKit.shared.monthsShort[selectedMonth.getMonth()];
+        var selectedMonth = qustodioToolKit.shared.parseSelectedMonth();
+        var currentMonthName = qustodioToolKit.shared.monthsShort[selectedMonth.getMonth()];
         var previousMonthName;
         if (selectedMonth.getMonth() === 0) {
-          previousMonthName = ynabToolKit.shared.monthsShort[11];
+          previousMonthName = qustodioToolKit.shared.monthsShort[11];
         } else {
-          previousMonthName = ynabToolKit.shared.monthsShort[selectedMonth.getMonth() - 1];
+          previousMonthName = qustodioToolKit.shared.monthsShort[selectedMonth.getMonth() - 1];
         }
 
         return {
@@ -72,13 +72,13 @@
 
       return {
         invoke() {
-          if ($.isEmptyObject(ynabToolKit.l10nMissingStrings)) {
-            ynabToolKit.l10nEmberData = Ember.I18n.translations;
-            var toolkitStrings = new Set(Object.keys(ynabToolKit.l10nData));
-            var emberStrings = new Set(Object.keys(ynabToolKit.l10nEmberData));
+          if ($.isEmptyObject(qustodioToolKit.l10nMissingStrings)) {
+            qustodioToolKit.l10nEmberData = Ember.I18n.translations;
+            var toolkitStrings = new Set(Object.keys(qustodioToolKit.l10nData));
+            var emberStrings = new Set(Object.keys(qustodioToolKit.l10nEmberData));
             emberStrings.forEach(function(s) {
               if (!toolkitStrings.has(s)) {
-                ynabToolKit.l10nMissingStrings[s] = ynabToolKit.l10nEmberData[s];
+                qustodioToolKit.l10nMissingStrings[s] = qustodioToolKit.l10nEmberData[s];
               }
             });
           }
@@ -86,7 +86,7 @@
           Ember.I18n.translations = jQuery.extend(
             true,
             Ember.I18n.translations,
-            ynabToolKit.l10nData
+            qustodioToolKit.l10nData
           );
         },
 
@@ -106,12 +106,12 @@
         },
 
         observe(changedNodes) {
-          ynabToolKit.l10n.invoke();
+          qustodioToolKit.l10n.invoke();
 
           // User has returned back to the budget screen
           // User switch budget month
           if (changedNodes.has('budget-header-flexbox') || changedNodes.has('budget-table')) {
-            ynabToolKit.l10n.budgetHeader();
+            qustodioToolKit.l10n.budgetHeader();
           }
 
           if (
@@ -122,7 +122,7 @@
             // Inspector edit goal months list.
             contentSetter.resetPrefix();
             contentSetter.setArray(
-              ynabToolKit.shared.monthsFull,
+              qustodioToolKit.shared.monthsFull,
               '.budget-inspector-goals .goal-target-month>option',
               1,
               3
@@ -130,20 +130,20 @@
           }
 
           // Hidden categories modal
-          if (changedNodes.has('modal-overlay ynab-u modal-budget-hidden-categories active')) {
+          if (changedNodes.has('modal-overlay qustodio-u modal-budget-hidden-categories active')) {
             contentSetter.selectorPrefix =
               '.modal-budget-hidden-categories-master-unhidden:contains("Credit Card Payments")';
             contentSetter.set(l10n['toolkit.creditCardPayments'], 1);
           }
 
           // User prefs modal
-          if (changedNodes.has('modal-overlay ynab-u modal-popup modal-user-prefs active')) {
+          if (changedNodes.has('modal-overlay qustodio-u modal-popup modal-user-prefs active')) {
             contentSetter.selectorPrefix = '.modal-user-prefs button';
             contentSetter.set(l10n['toolkit.myAccount'], 1);
           }
 
           // New transaction fields modals
-          if (changedNodes.has('modal-overlay ynab-u modal-popup modal-account-flags active')) {
+          if (changedNodes.has('modal-overlay qustodio-u modal-popup modal-account-flags active')) {
             contentSetter.selectorPrefix = '.modal-account-flags';
             var colors = ['red', 'orange', 'yellow', 'green', 'blue', 'purple'].map(function(
               color
@@ -157,7 +157,7 @@
 
           if (
             changedNodes.has(
-              'modal-overlay ynab-u modal-popup modal-account-dropdown modal-account-categories active'
+              'modal-overlay qustodio-u modal-popup modal-account-dropdown modal-account-categories active'
             )
           ) {
             contentSetter.selectorPrefix = '.modal-account-categories ';
@@ -169,7 +169,7 @@
 
           if (
             changedNodes.has(
-              'modal-overlay ynab-u modal-popup modal-account-dropdown modal-account-payees active'
+              'modal-overlay qustodio-u modal-popup modal-account-dropdown modal-account-payees active'
             )
           ) {
             contentSetter.selectorPrefix = '.modal-account-payees .is-section-item';
@@ -177,7 +177,7 @@
           }
 
           if (
-            changedNodes.has('modal-overlay ynab-u modal-account-calendar active') ||
+            changedNodes.has('modal-overlay qustodio-u modal-account-calendar active') ||
             changedNodes.has('accounts-calendar')
           ) {
             contentSetter.selectorPrefix = '.modal-account-calendar';
@@ -195,29 +195,37 @@
           }
 
           // Accounts filters months options
-          if (changedNodes.has('modal-overlay ynab-u modal-generic modal-account-filters active')) {
+          if (
+            changedNodes.has('modal-overlay qustodio-u modal-generic modal-account-filters active')
+          ) {
             contentSetter.selectorPrefix = '.modal-account-filters ';
-            contentSetter.setArray(ynabToolKit.shared.monthsFull, '.date-range-from-months option');
-            contentSetter.setArray(ynabToolKit.shared.monthsFull, '.date-range-to-months option');
+            contentSetter.setArray(
+              qustodioToolKit.shared.monthsFull,
+              '.date-range-from-months option'
+            );
+            contentSetter.setArray(
+              qustodioToolKit.shared.monthsFull,
+              '.date-range-to-months option'
+            );
           }
 
           // Account row
-          if (changedNodes.has('ynab-grid-body')) {
-            $('.ynab-grid-cell-payeeName[title="Starting Balance"]')
+          if (changedNodes.has('qustodio-grid-body')) {
+            $('.qustodio-grid-cell-payeeName[title="Starting Balance"]')
               .contents()
               .each(function() {
                 if (this.textContent === 'Starting Balance')
                   this.textContent = l10n['toolkit.startingBalance'];
               });
 
-            $('.ynab-grid-cell-subCategoryName[title="Inflow: To be Budgeted"]')
+            $('.qustodio-grid-cell-subCategoryName[title="Inflow: To be Budgeted"]')
               .contents()
               .each(function() {
                 if (this.textContent === 'Inflow: To be Budgeted')
                   this.textContent = l10n['toolkit.inflowTBB'];
               });
 
-            $('.ynab-grid-cell-subCategoryName[title="Split (Multiple Categories)..."]')
+            $('.qustodio-grid-cell-subCategoryName[title="Split (Multiple Categories)..."]')
               .contents()
               .each(function() {
                 if (this.textContent === 'Split (Multiple Categories)...')
@@ -228,13 +236,13 @@
       };
     })(); // Keep feature functions contained within this object
 
-    ynabToolKit.l10n.invoke(); // Run your script once on page load
-    ynabToolKit.l10n.budgetHeader();
+    qustodioToolKit.l10n.invoke(); // Run your script once on page load
+    qustodioToolKit.l10n.budgetHeader();
 
     // Rerender sidebar and content views on page load.
     var rerenderClasses = ['.layout'];
     for (var i = 0; i < rerenderClasses.length; i++) {
-      ynabToolKit.shared.getEmberView($(rerenderClasses[i]).attr('id')).rerender();
+      qustodioToolKit.shared.getEmberView($(rerenderClasses[i]).attr('id')).rerender();
     }
 
     // When rerendering sidebar accounts lists are closing, open them.

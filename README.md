@@ -1,8 +1,10 @@
 <p align="center">
-<!--  <img src="http://i.imgur.com/SJhwBpU.png" alt="Toolkit for YNAB"> -->
+<!--  <img src="http://i.imgur.com/SJhwBpU.png" alt="Toolkit for Qustodio"> -->
 </p>
 
-[![Build Status](https://travis-ci.org/potto007/toolkit-for-qustodio.svg?branch=master)](https://travis-ci.org/potto007/toolkit-for-qustodio)
+[![Build Status](https://travis-ci.org/toolkit-for-qustodio/toolkit-for-qustodio.svg?branch=master)](https://travis-ci.org/toolkit-for-qustodio/toolkit-for-qustodio)
+
+# Toolkit for Qustodio
 
 # Toolkit for Qustodio
 
@@ -61,7 +63,7 @@ on the roadmap. If you can't find what you want to build on the roadmap, feel fr
 a note up on the github issues board to let the team know you're working on something new.
 When your code is ready, submit a pull request.
 
-For documentation on how to build a feature, [see the documentation](https://github.com/potto007/toolkit-for-qustodio/blob/master/docs/building-features.md).
+For documentation on how to build a feature, [see the documentation](https://github.com/toolkit-for-qustodio/toolkit-for-qustodio/blob/master/docs/building-features.md).
 
 ### Building the Code
 

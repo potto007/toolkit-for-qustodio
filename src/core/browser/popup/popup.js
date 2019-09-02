@@ -54,7 +54,7 @@ export class Popup {
   };
 
   _toggleToolkitDisabledUI = isToolkitDisabled => {
-    const logoPath = `assets/images/logos/toolkitforynab-logo-200${
+    const logoPath = `assets/images/logos/toolkitforqustodio-logo-200${
       isToolkitDisabled ? '-disabled' : ''
     }.png`;
     const logoURL = this._browser.runtime.getURL(logoPath);

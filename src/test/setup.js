@@ -21,7 +21,7 @@ function resetWebExtensionsAPI() {
   global.browser = webExtensionsAPI;
 }
 
-export function readyYNAB(options = {}) {
+export function readyQustodio(options = {}) {
   const ember = new Ember();
   const toolkitOptions = allToolkitSettings.reduce((settings, current) => {
     settings[current.name] = false;
@@ -34,7 +34,7 @@ export function readyYNAB(options = {}) {
   global.ynabToolKit = options.ynabToolKit || { options: toolkitOptions };
 }
 
-export function unreadyYNAB() {
+export function unreadyQustodio() {
   global.Ember = undefined;
   global.Em = undefined;
   global.$ = undefined;
@@ -44,11 +44,11 @@ export function unreadyYNAB() {
 beforeEach(() => {
   resetConsoleSpies();
   resetWebExtensionsAPI();
-  readyYNAB();
+  readyQustodio();
 
   localStorage.clear();
 });
 
 resetConsoleSpies();
 resetWebExtensionsAPI();
-readyYNAB();
+readyQustodio();

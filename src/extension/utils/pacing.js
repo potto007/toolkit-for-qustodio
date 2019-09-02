@@ -1,8 +1,8 @@
 import { controllerLookup } from 'toolkit/extension/utils/ember';
 import { getToolkitStorageKey, setToolkitStorageKey } from 'toolkit/extension/utils/toolkit';
-import { getEntityManager } from 'toolkit/extension/utils/ynab';
+import { getEntityManager } from 'toolkit/extension/utils/qustodio';
 
-export const LEGACY_PACING_DEEMPHASIZED_KEY = 'ynab_toolkit_pacing_deemphasized_categories';
+export const LEGACY_PACING_DEEMPHASIZED_KEY = 'qustodio_toolkit_pacing_deemphasized_categories';
 export const PACING_DEEMPHASIZED_KEY = 'pacing-deemphasized-categories';
 
 export function getDeemphasizedCategories() {
@@ -72,7 +72,7 @@ export function migrateLegacyPacingStorage() {
 export function pacingForCategory(budgetMonthDisplayItem) {
   if (
     budgetMonthDisplayItem.getEntityType() !==
-    ynab.constants.DisplayEntityType.BudgetMonthDisplayItem
+    qustodio.constants.DisplayEntityType.BudgetMonthDisplayItem
   ) {
     throw new Error('Invalid Argument to calculate pacing. Expected BudgetMonthDisplayItem');
   }
@@ -82,7 +82,7 @@ export function pacingForCategory(budgetMonthDisplayItem) {
     throw new Error('Pacing can only be calculated for subCategories.');
   }
 
-  const today = new ynab.utilities.DateWithoutTime();
+  const today = new qustodio.utilities.DateWithoutTime();
   const startOfCurrentMonth = today.clone().startOfMonth();
   const endOfCurrentMonth = today.clone().endOfMonth();
   const categoryMonth = budgetMonthDisplayItem.get('budgetMonth');

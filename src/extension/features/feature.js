@@ -4,7 +4,7 @@ import { logToolkitError } from 'toolkit/core/common/errors/with-toolkit-error';
 export class Feature {
   constructor() {
     this.settings = {
-      enabled: ynabToolKit.options[this.constructor.name],
+      enabled: qustodioToolKit.options[this.constructor.name],
     };
   }
 

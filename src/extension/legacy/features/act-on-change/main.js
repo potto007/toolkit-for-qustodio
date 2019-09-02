@@ -1,19 +1,22 @@
 (function poll() {
-  if (ynabToolKit.pageReady === true && typeof ynabToolKit.shared.feedChanges !== 'undefined') {
+  if (
+    qustodioToolKit.pageReady === true &&
+    typeof qustodioToolKit.shared.feedChanges !== 'undefined'
+  ) {
     // When this is true, the feature scripts will know they can use the mutationObserver
-    ynabToolKit.actOnChangeInit = false;
+    qustodioToolKit.actOnChangeInit = false;
 
-    // Set 'ynabToolKit.debugNodes = true' to print changes the mutationObserver sees
+    // Set 'qustodioToolKit.debugNodes = true' to print changes the mutationObserver sees
     // during page interactions and updates to the developer tools console.
-    // ynabToolKit.debugNodes = true;
-    ynabToolKit.actOnChange = function() {
+    // qustodioToolKit.debugNodes = true;
+    qustodioToolKit.actOnChange = function() {
       var _MutationObserver = window.MutationObserver || window.WebKitMutationObserver;
       var observer = new _MutationObserver(function(mutations) {
-        if (ynabToolKit.debugNodes) {
+        if (qustodioToolKit.debugNodes) {
           console.log('MODIFIED NODES');
         }
 
-        ynabToolKit.changedNodes = new Set();
+        qustodioToolKit.changedNodes = new Set();
 
         mutations.forEach(function(mutation) {
           var newNodes = mutation.target;
@@ -21,20 +24,20 @@
           var $nodes = $(newNodes); // jQuery set
           $nodes.each(function() {
             var nodeClass = $(this).attr('class');
-            if (nodeClass) ynabToolKit.changedNodes.add(nodeClass.replace(/^ember-view /, ''));
+            if (nodeClass) qustodioToolKit.changedNodes.add(nodeClass.replace(/^ember-view /, ''));
           }); // each node mutation event
         }); // each mutation event
 
-        if (ynabToolKit.debugNodes) {
-          console.log(ynabToolKit.changedNodes);
+        if (qustodioToolKit.debugNodes) {
+          console.log(qustodioToolKit.changedNodes);
           console.log('###');
         }
 
         // Now we are ready to feed the change digest to the
         // automatically setup feedChanges file/function
-        if (ynabToolKit.changedNodes.size > 0) {
-          ynabToolKit.shared.feedChanges({
-            changedNodes: ynabToolKit.changedNodes,
+        if (qustodioToolKit.changedNodes.size > 0) {
+          qustodioToolKit.shared.feedChanges({
+            changedNodes: qustodioToolKit.changedNodes,
           });
         }
       });
@@ -48,11 +51,11 @@
         attributeFilter: ['class'],
       });
 
-      ynabToolKit.actOnChangeInit = true;
+      qustodioToolKit.actOnChangeInit = true;
     };
 
     // Run listeners once
-    ynabToolKit.actOnChange();
+    qustodioToolKit.actOnChange();
   } else if (typeof Ember !== 'undefined') {
     Ember.run.next(poll, 250);
   } else {

@@ -48,10 +48,10 @@ function sendToolkitBootstrap(options) {
 
   window.postMessage(
     {
-      type: 'ynab-toolkit-bootstrap',
-      ynabToolKit: {
+      type: 'qustodio-toolkit-bootstrap',
+      qustodioToolKit: {
         assets: {
-          logo: browser.runtime.getURL('assets/images/logos/toolkitforynab-logo-400.png'),
+          logo: browser.runtime.getURL('assets/images/logos/toolkitforqustodio-logo-400.png'),
         },
         environment,
         extensionId: browser.runtime.id,
@@ -67,10 +67,10 @@ function sendToolkitBootstrap(options) {
 function messageHandler(event) {
   if (event.data && event.data.type) {
     switch (event.data.type) {
-      case 'ynab-toolkit-loaded':
-        initializeYNABToolkit();
+      case 'qustodio-toolkit-loaded':
+        initializeQustodioToolkit();
         break;
-      case 'ynab-toolkit-error':
+      case 'qustodio-toolkit-error':
         handleToolkitError(event.data.context);
         break;
     }
@@ -81,7 +81,7 @@ function handleToolkitError(context) {
   getBrowser().runtime.sendMessage({ type: 'error', context });
 }
 
-async function initializeYNABToolkit() {
+async function initializeQustodioToolkit() {
   const userSettings = await getUserSettings();
   sendToolkitBootstrap(userSettings);
 
@@ -107,8 +107,8 @@ async function init() {
     return;
   }
 
-  // Load the toolkit bundle onto the YNAB dom
-  injectScript('web-accessibles/ynab-toolkit.js');
+  // Load the toolkit bundle onto the Qustodio dom
+  injectScript('web-accessibles/qustodio-toolkit.js');
 
   // wait for the bundle to tell us it's loaded
   window.addEventListener('message', messageHandler);

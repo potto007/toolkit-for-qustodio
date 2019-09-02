@@ -152,21 +152,21 @@ jq(() => {
         showActions: true,
       },
       {
-        id: 'accountsSettingsPage',
+        id: 'appsSettingsPage',
         iconClass: 'fa-university',
-        title: 'Accounts Screen Settings',
+        title: 'Apps Screen Settings',
         showActions: true,
       },
       {
-        id: 'budgetSettingsPage',
+        id: 'timeLimitsSettingsPage',
         iconClass: 'fa-envelope-o',
-        title: 'Budget Screen Settings',
+        title: 'Time Limits Screen Settings',
         showActions: true,
       },
       {
-        id: 'reportsSettingsPage',
+        id: 'webSettingsPage',
         iconClass: 'fa-bar-chart',
-        title: 'Reports Screen Settings',
+        title: 'Web Screen Settings',
         showActions: true,
       },
     ];
@@ -383,7 +383,7 @@ jq(() => {
   }
 
   function updateToolkitLogo(isToolkitDisabled) {
-    const logo = `assets/images/logos/toolkitforynab-logo-200${
+    const logo = `assets/images/logos/toolkitforqustodio-logo-200${
       isToolkitDisabled ? '-disabled' : ''
     }.png`;
     jq('#logo').attr('src', getBrowser().runtime.getURL(logo));
@@ -422,16 +422,16 @@ jq(() => {
       loadPanel('general');
       e.preventDefault();
     });
-    jq('#accountsMenuItem').click(function(e) {
-      loadPanel('accounts');
+    jq('#appsMenuItem').click(function(e) {
+      loadPanel('apps');
       e.preventDefault();
     });
-    jq('#budgetMenuItem').click(function(e) {
-      loadPanel('budget');
+    jq('#timeLimitsMenuItem').click(function(e) {
+      loadPanel('time-limits');
       e.preventDefault();
     });
-    jq('#reportsMenuItem').click(function(e) {
-      loadPanel('reports');
+    jq('#webMenuItem').click(function(e) {
+      loadPanel('web');
       e.preventDefault();
     });
     jq('#supportMenuItem').click(function(e) {

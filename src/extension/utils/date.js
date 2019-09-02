@@ -1,12 +1,12 @@
 import { l10nMonth, MonthStyle } from './toolkit';
-import { getEntityManager } from './ynab';
+import { getEntityManager } from './qustodio';
 
 export function getCurrentDate(format) {
-  return ynabDate(format, false);
+  return qustodioDate(format, false);
 }
 
 export function getToday() {
-  const today = new ynab.utilities.DateWithoutTime();
+  const today = new qustodio.utilities.DateWithoutTime();
   return today.clone();
 }
 
@@ -34,10 +34,10 @@ export function sortByGettableDate(a, b) {
   return 0;
 }
 
-function ynabDate(format) {
+function qustodioDate(format) {
   if (typeof format !== 'string') {
-    return ynab.YNABSharedLib.dateFormatter.formatDate();
+    return qustodio.QustodioSharedLib.dateFormatter.formatDate();
   }
 
-  return ynab.YNABSharedLib.dateFormatter.formatDate(moment(), format);
+  return qustodio.QustodioSharedLib.dateFormatter.formatDate(moment(), format);
 }

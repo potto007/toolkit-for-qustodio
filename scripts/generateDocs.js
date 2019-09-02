@@ -26,14 +26,14 @@ const settingsMap = allToolkitSettings.reduce((map, setting) => {
 
 const docSettingsOrder = [
   { key: 'general', name: 'General' },
-  { key: 'budget', name: 'Budget' },
-  { key: 'accounts', name: 'Accounts' },
-  { key: 'reports', name: 'Reports' },
+  { key: 'apps', name: 'Apps' },
+  { key: 'time-limits', name: 'Time Limits' },
+  { key: 'web', name: 'Web' },
   { key: 'advanced', name: 'Advanced' },
 ];
 
 let docOutput =
-  '<!-- THIS FILE IS GENERATED THERE IS NO NEED TO ADD YOUR FEATURE TO THIS LIST -->\n# List of YNAB Toolkit Features\n\n';
+  '<!-- THIS FILE IS GENERATED THERE IS NO NEED TO ADD YOUR FEATURE TO THIS LIST -->\n# List of Qustodio Toolkit Features\n\n';
 docOutput += docSettingsOrder
   .map(({ key, name }) => {
     let settingSection = `<details><summary>${name} (Click to Expand/Collapse)</summary>\n`;

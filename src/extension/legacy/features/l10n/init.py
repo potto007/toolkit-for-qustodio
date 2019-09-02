@@ -13,12 +13,12 @@ if len(sys.argv) != 2:
     print 'ERROR:'
     print ''
     print 'Please supply a Crowdin API key, obtained on this page:'
-    print 'http://translate.toolkitforynab.com/project/toolkit-for-ynab/settings#api\n'
+    print 'http://translate.toolkitforqustodio.com/project/toolkit-for-qustodio/settings#api\n'
     print 'Example: ./get_l10ns <api key>'
     print ''
     exit(1)
 
-ID = 'toolkit-for-ynab'
+ID = 'toolkit-for-qustodio'
 KEY = sys.argv[1:][0]
 API_PREFIX = 'https://api.crowdin.com/api/project/%s/' % ID
 KEY_SUFFIX = '?key=%s' % KEY
@@ -61,7 +61,7 @@ def unpack(lang_completed):
                 with open(os.path.join(DEST_DIR, name), 'r+') as f:
                     content = f.read()
                     f.seek(0, 0)
-                    f.write('/* eslint-disable */\nynabToolKit.l10nData = ' + content)
+                    f.write('/* eslint-disable */\nqustodioToolKit.l10nData = ' + content)
     for root, dirs, files in os.walk(DEST_DIR):
         for name in dirs:
             shutil.rmtree(os.path.join(root, name))
@@ -80,7 +80,7 @@ def create_settings(lang_completed):
          "type": "select",
       "default": "0",
       "section": "general",
-        "title": "Localization of YNAB",
+        "title": "Localization of Qustodio",
   "description": "Localization of interface.",
       "options": [
                 { "name": "Default", "value": "0" }
