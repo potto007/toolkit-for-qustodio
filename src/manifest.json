@@ -26,7 +26,7 @@
     "page": "background/index.html",
     "persistent": true
   },
-  "homepage_url": "https://github.com/potto007/toolkit-for-qustodio/",
+  "homepage_url": "https://github.com/toolkit-for-qustodio/toolkit-for-qustodio/",
   "options_ui": {
     "open_in_tab": true,
     "page": "options/index.html"

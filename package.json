@@ -4,11 +4,11 @@
   "description": "A general purpose Qustodio Parent Portal enhancing browser extension for Chrome and Firefox.",
   "repository": {
     "type": "git",
-    "url": "https://github.com/potto007/toolkit-for-qustodio.git"
+    "url": "https://github.com/toolkit-for-qustodio/toolkit-for-qustodio.git"
   },
-  "homepage": "https://github.com/potto007/toolkit-for-qustodio",
+  "homepage": "https://github.com/toolkit-for-qustodio/toolkit-for-qustodio",
   "bugs": {
-    "url": "https://github.com/potto007/toolkit-for-qustodio/issues"
+    "url": "https://github.com/toolkit-for-qustodio/toolkit-for-qustodio/issues"
   },
   "license": "mit",
   "author": {
