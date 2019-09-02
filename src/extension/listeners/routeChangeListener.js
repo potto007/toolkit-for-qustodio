@@ -16,7 +16,7 @@ export class RouteChangeListener {
     let applicationController = controllerLookup('application');
     applicationController.reopen({
       onRouteChanged: Ember.observer(
-        'currentRouteName', // this will handle accounts -> budget and vise versa
+        'currentRouteName', // this will handle changes between apps, time-limits, and web
         'budgetVersionId', // this will handle changing budgets
         'selectedAccountId', // this will handle switching around accounts
         'monthString', // this will handle changing which month of a budget you're looking at
