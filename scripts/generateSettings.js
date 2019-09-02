@@ -11,6 +11,7 @@ const ALL_SETTINGS_OUTPUT = 'src/core/settings/settings.js';
 const SETTINGS_JSON = 'scripts/settings.json';
 const REQUIRED_SETTINGS = ['name', 'type', 'default', 'section', 'title'];
 
+// TODO: remove legacySettingsMap
 const legacySettingMap = {
   AccountsDisplayDensity: 'accountsDisplayDensity',
   AutoCloseReconcile: 'closeReconcileWindow',
@@ -287,17 +288,17 @@ function generateAllSettingsFile(allSettings) {
  ***********************************************************
 */
 
-if (typeof window.ynabToolKit === 'undefined') { window.ynabToolKit = {}; }
+if (typeof window.qustodioToolKit === 'undefined') { window.qustodioToolKit = {}; }
 
 export const legacySettingMap = ${JSON.stringify(legacySettingMap)};
 export const allToolkitSettings = ${JSON.stringify(allSettings)};
 
 // eslint-disable-next-line quotes, object-curly-spacing, quote-props
-window.ynabToolKit.settings = allToolkitSettings;
+window.qustodioToolKit.settings = allToolkitSettings;
 
 // We don't update these from anywhere else, so go ahead and freeze / seal the object so nothing can be injected.
-Object.freeze(window.ynabToolKit.settings);
-Object.seal(window.ynabToolKit.settings);
+Object.freeze(window.qustodioToolKit.settings);
+Object.seal(window.qustodioToolKit.settings);
 `;
 }
 

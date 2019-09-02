@@ -5,6 +5,7 @@ const request = require('request');
 
 const workspaceRoot = path.join(__dirname, '..');
 const extensionDistPath = path.join(workspaceRoot, 'dist');
+const sentryNoop = true;
 
 function getEnvironmentOrExit(variable) {
   if (!process.env[variable]) {
@@ -22,7 +23,7 @@ function getEnvironmentVariables() {
     chromeClientId: getEnvironmentOrExit('CHROME_CLIENT_ID'),
     chromeClientSecret: getEnvironmentOrExit('CHROME_CLIENT_SECRET'),
     chromeRefreshToken: getEnvironmentOrExit('CHROME_REFRESH_TOKEN'),
-    sentryAuthToken: getEnvironmentOrExit('SENTRY_AUTH_TOKEN'),
+    sentryAuthToken: sentryNoop ? 'NOOP' : getEnvironmentOrExit('SENTRY_AUTH_TOKEN'),
   };
 }
 
@@ -79,63 +80,68 @@ async function uploadToWebStore(environmentVariables) {
 }
 
 async function uploadSourcemapsToSentry({ sentryAuthToken }) {
-  console.log(sentryAuthToken);
-  const version = require(`${extensionDistPath}/extension/manifest.json`).version;
+  if (sentryNoop) {
+    console.log('Upload to Sentry currently noop');
+    return;
+  } else {
+    console.log(sentryAuthToken);
+    const version = require(`${extensionDistPath}/extension/manifest.json`).version;
 
-  try {
-    await request({
-      json: {
-        projects: ['toolkit-for-ynab'],
-        version: `${version}`,
-      },
-      headers: {
-        Authorization: `Bearer ${sentryAuthToken}`,
-        'Content-Type': 'application/json',
-      },
-      method: 'POST',
-      url: 'https://sentry.io/api/0/organizations/toolkit-for-ynab/releases/',
-    });
-
-    console.log(`Release: ${version} created`);
-  } catch (error) {
-    console.log(`Failed to create release for ${version}.\n`, error);
-  }
-
-  glob(`${extensionDistPath}/**/*.{js,map}`, async (_, files) => {
     try {
-      await Promise.all(
-        files.map(filePath => {
-          return new Promise((resolve, reject) => {
-            request(
-              {
-                formData: {
-                  file: fs.createReadStream(filePath),
-                  name: filePath.replace(`${extensionDistPath}/extension/`, '~/'),
-                },
-                headers: {
-                  Authorization: `Bearer ${sentryAuthToken}`,
-                  'Content-Type': 'multipart/form-data',
-                },
-                method: 'POST',
-                url: `https://sentry.io/api/0/projects/toolkit-for-ynab/toolkit-for-ynab/releases/${version}/files/`,
-              },
-              error => {
-                if (error) {
-                  console.log(`${filePath}: failure`);
-                  return reject();
-                }
+      await request({
+        json: {
+          projects: ['toolkit-for-qustodio'],
+          version: `${version}`,
+        },
+        headers: {
+          Authorization: `Bearer ${sentryAuthToken}`,
+          'Content-Type': 'application/json',
+        },
+        method: 'POST',
+        url: 'https://sentry.io/api/0/organizations/toolkit-for-qustodio/releases/',
+      });
 
-                console.log(`${filePath}: success`);
-                resolve();
-              }
-            );
-          });
-        })
-      );
+      console.log(`Release: ${version} created`);
     } catch (error) {
-      console.log('Error uploading files: ', error);
+      console.log(`Failed to create release for ${version}.\n`, error);
     }
-  });
+
+    glob(`${extensionDistPath}/**/*.{js,map}`, async (_, files) => {
+      try {
+        await Promise.all(
+          files.map(filePath => {
+            return new Promise((resolve, reject) => {
+              request(
+                {
+                  formData: {
+                    file: fs.createReadStream(filePath),
+                    name: filePath.replace(`${extensionDistPath}/extension/`, '~/'),
+                  },
+                  headers: {
+                    Authorization: `Bearer ${sentryAuthToken}`,
+                    'Content-Type': 'multipart/form-data',
+                  },
+                  method: 'POST',
+                  url: `https://sentry.io/api/0/projects/toolkit-for-qustodio/toolkit-for-qustodio/releases/${version}/files/`,
+                },
+                error => {
+                  if (error) {
+                    console.log(`${filePath}: failure`);
+                    return reject();
+                  }
+
+                  console.log(`${filePath}: success`);
+                  resolve();
+                }
+              );
+            });
+          })
+        );
+      } catch (error) {
+        console.log('Error uploading files: ', error);
+      }
+    });
+  }
 }
 
 async function publishForChrome() {
@@ -150,7 +156,9 @@ async function publishForChrome() {
   }
 
   await uploadToWebStore(environmentVariables);
-  await uploadSourcemapsToSentry(environmentVariables);
+  if (!sentryNoop) {
+    await uploadSourcemapsToSentry(environmentVariables);
+  }
 }
 
 publishForChrome();
