@@ -102,7 +102,7 @@
   "dependencies": {
     "classnames": "^2.2.6",
     "fuzzysort": "^1.1.4",
-    "highcharts": "7",
+    "highcharts": "9",
     "mathjs": "^6.1.0",
     "mem": "^4.0.0",
     "raven-js": "^3.25.2",
