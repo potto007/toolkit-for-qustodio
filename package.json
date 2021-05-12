@@ -103,7 +103,7 @@
     "classnames": "^2.2.6",
     "fuzzysort": "^1.1.4",
     "highcharts": "7",
-    "mathjs": "^6.1.0",
+    "mathjs": "^7.5.1",
     "mem": "^4.0.0",
     "raven-js": "^3.25.2",
     "react": "^16.4.1",
