@@ -108,7 +108,7 @@
     "raven-js": "^3.25.2",
     "react": "^16.4.1",
     "react-dom": "^16.4.1",
-    "set-value": "^2.0.1"
+    "set-value": "^4.0.1"
   },
   "devDependencies": {
     "@babel/cli": "^7.1.2",
